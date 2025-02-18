@@ -1,10 +1,8 @@
 'use client'
 
 import Navbar from "@/components/navbar"
-import Hero from "@/components/hero"
 import Features from "@/components/features"
 import Footer from "@/components/footer"
-import Gallary from "@/components/gallary"
 import Link from "next/link"
 import Image from "next/image"
 import 'aos/dist/aos.css';
@@ -12,7 +10,13 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react"
 import AOS from 'aos';
 import { BrandCollaboration } from "@/components/partner"
-import { Globe, ShieldCheck, Ticket } from "lucide-react"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import {
+  SearchIcon,
+} from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 
 export default function Home() {
   useEffect(() => {
@@ -59,22 +63,22 @@ export default function Home() {
   const destinations = [
     {
       name: "Zanzibar Beaches",
-      image: "https://images.unsplash.com/photo-1564982759619-68c0d48d6581",
+      image: "https://www.flightcentre.co.za/sites/flightcentre.co.za/files/beaches-of-zanzibar-header-image.jpg",
       description: "Pristine white sands and crystal-clear waters of the Indian Ocean"
     },
     {
       name: "Serengeti Safari",
-      image: "https://images.unsplash.com/photo-1598885150804-9e5a15517f3c",
+      image: "https://wildlifesafaritanzania.com/wp-content/uploads/2020/12/4-Days-Serengeti-Ngorongoro-Wildlife-Safari.jpg",
       description: "Witness the Great Migration in Tanzania's iconic national park"
     },
     {
       name: "Mount Kilimanjaro",
-      image: "https://images.unsplash.com/photo-1615218257894-8e698a26d2a8",
+      image: "https://samuelsongallery.com/wp-content/uploads/2016/03/Kilimanjaro-Sunrise-8x12.jpg",
       description: "Conquer Africa's highest peak with expert guides"
     },
     {
       name: "Ngorongoro Crater",
-      image: "https://images.unsplash.com/photo-1573843981264-be7f3d5d0d88",
+      image: "https://africaadventurevacations.com/wp-content/uploads/2022/06/How-big-is-the-Ngorongoro-Crater-1.jpg",
       description: "Explore the world's largest intact volcanic caldera"
     }
   ];
@@ -90,7 +94,61 @@ export default function Home() {
 
       <div className="relative z-10">
         <Navbar />
-        <Hero />
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-[url('https://wallpapercave.com/wp/wp4854991.jpg')] bg-cover bg-center">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h1 className="text-3xl font-bold tracking-tighter text-white sm:text-4xl md:text-5xl lg:text-6xl/none drop-shadow-md">
+                  Discover Your Next Adventure
+                </h1>
+                <p className="mx-auto max-w-[700px] text-white md:text-xl drop-shadow-md">
+                  Explore the world's most beautiful destinations and create unforgettable memories.
+                </p>
+              </div>
+              <div className="w-full max-w-md space-y-2">
+                <Card>
+                  <CardContent className="p-3">
+                    <Tabs defaultValue="flights" className="w-full">
+                      <TabsList className="grid w-full grid-cols-3">
+                        <TabsTrigger value="flights">Flights</TabsTrigger>
+                        <TabsTrigger value="hotels">Hotels</TabsTrigger>
+                        <TabsTrigger value="cars">Cars</TabsTrigger>
+                      </TabsList>
+                      <TabsContent value="flights">
+                        <form className="flex mt-4 space-x-2">
+                          <Input className="flex-1" placeholder="From" type="text" />
+                          <Input className="flex-1" placeholder="To" type="text" />
+                          <Button type="submit">
+                            <SearchIcon className="w-4 h-4 mr-2" />
+                            Search
+                          </Button>
+                        </form>
+                      </TabsContent>
+                      <TabsContent value="hotels">
+                        <form className="flex mt-4 space-x-2">
+                          <Input className="flex-1" placeholder="Where are you going?" type="text" />
+                          <Button type="submit">
+                            <SearchIcon className="w-4 h-4 mr-2" />
+                            Search
+                          </Button>
+                        </form>
+                      </TabsContent>
+                      <TabsContent value="cars">
+                        <form className="flex mt-4 space-x-2">
+                          <Input className="flex-1" placeholder="Pick-up location" type="text" />
+                          <Button type="submit">
+                            <SearchIcon className="w-4 h-4 mr-2" />
+                            Search
+                          </Button>
+                        </form>
+                      </TabsContent>
+                    </Tabs>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Experience Section */}
         <section className="py-24">
