@@ -10,13 +10,10 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react"
 import AOS from 'aos';
 import { BrandCollaboration } from "@/components/partner"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-  SearchIcon,
-} from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import ic1 from "../public/flight.png"
+import ic2 from "../public/hotels.png"
+import ic3 from "../public/bus.png"
+import ic4 from "../public/car.png"
 
 export default function Home() {
   useEffect(() => {
@@ -38,6 +35,29 @@ export default function Home() {
       setTimeout(() => setSubmitted(false), 3000);
     }
   };
+  const icons = [
+    {
+      name: "Flight",
+      image: ic1,
+      link: '/flight',
+    },
+    {
+      name: "Hotel",
+      image: ic2,
+      link : '/hotel'
+    },
+    {
+      name: "Bus",
+      image: ic3,
+      link:'/bus'
+    },
+    {
+      name: "Car",
+      image: ic4,
+      link:'/car'
+    },
+  ]
+
 
   const testimonials = [
     {
@@ -94,62 +114,77 @@ export default function Home() {
 
       <div className="relative z-10">
         <Navbar />
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-[url('https://wallpapercave.com/wp/wp4854991.jpg')] bg-cover bg-center">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter text-white sm:text-4xl md:text-5xl lg:text-6xl/none drop-shadow-md">
-                  Discover Your Next Adventure
-                </h1>
-                <p className="mx-auto max-w-[700px] text-white md:text-xl drop-shadow-md">
-                  Explore the world's most beautiful destinations and create unforgettable memories.
-                </p>
+        <div
+          id="booking"
+          className="relative h-screen bg-center bg-cover"
+          style={{ backgroundImage: "url('https://wallpapercave.com/wp/wp4854991.jpg')" }}
+        >
+          <div className="absolute inset-0 bg-slate-300 bg-opacity-15"></div>
+          <div className="absolute left-0 transform -translate-y-1/2 top-1/2">
+            <div className="container px-4 mx-auto">
+              <div className="flex flex-row gap-5 pb-6">
+                {icons.map((icon, index) => (
+                  <Link href={icon.link} >
+                    <Image src={icon.image} alt={icon.name} width={70} height={70} className="p-3 rounded-sm bg-slate-300" />
+                  </Link>
+                ))}
               </div>
-              <div className="w-full max-w-md space-y-2">
-                <Card>
-                  <CardContent className="p-3">
-                    <Tabs defaultValue="flights" className="w-full">
-                      <TabsList className="grid w-full grid-cols-3">
-                        <TabsTrigger value="flights">Flights</TabsTrigger>
-                        <TabsTrigger value="hotels">Hotels</TabsTrigger>
-                        <TabsTrigger value="cars">Cars</TabsTrigger>
-                      </TabsList>
-                      <TabsContent value="flights">
-                        <form className="flex mt-4 space-x-2">
-                          <Input className="flex-1" placeholder="From" type="text" />
-                          <Input className="flex-1" placeholder="To" type="text" />
-                          <Button type="submit">
-                            <SearchIcon className="w-4 h-4 mr-2" />
-                            Search
-                          </Button>
-                        </form>
-                      </TabsContent>
-                      <TabsContent value="hotels">
-                        <form className="flex mt-4 space-x-2">
-                          <Input className="flex-1" placeholder="Where are you going?" type="text" />
-                          <Button type="submit">
-                            <SearchIcon className="w-4 h-4 mr-2" />
-                            Search
-                          </Button>
-                        </form>
-                      </TabsContent>
-                      <TabsContent value="cars">
-                        <form className="flex mt-4 space-x-2">
-                          <Input className="flex-1" placeholder="Pick-up location" type="text" />
-                          <Button type="submit">
-                            <SearchIcon className="w-4 h-4 mr-2" />
-                            Search
-                          </Button>
-                        </form>
-                      </TabsContent>
-                    </Tabs>
-                  </CardContent>
-                </Card>
+              <div className="flex justify-start">
+                <div className="w-full max-w-5xl p-6 bg-white rounded-md shadow-lg">
+                  <form>
+                    <div className="flex flex-row -mx-2">
+                      {/* Destination */}
+                      <div className="w-full px-2 mb-4 md:w-1/4">
+                        <label className="text-sm font-medium text-black">Boarding Point</label>
+                        <input
+                          type="text"
+                          placeholder="Country, ZIP, city..."
+                          className="w-full py-2 text-lg text-black border-b border-gray-300 focus:outline-none"
+                        />
+                      </div>
+                      <div className="w-full px-2 mb-4 md:w-1/4">
+                        <label className="text-sm font-medium text-black">Destination Point</label>
+                        <input
+                          type="text"
+                          placeholder="Country, ZIP, city..."
+                          className="w-full py-2 text-lg text-black border-b border-gray-300 focus:outline-none"
+                        />
+                      </div>
+                      {/* Check In & Check Out */}
+                      <div className="flex flex-wrap w-full px-2 mb-4 md:w-1/2">
+                        <div className="w-1/2 pr-2">
+                          <label className="text-sm font-medium text-black">Departure Date</label>
+                          <input
+                            type="date"
+                            required
+                            className="w-full py-2 text-lg text-gray-400 border-b border-gray-300 focus:outline-none"
+                          />
+                        </div>
+                        <div className="w-1/2 pl-2">
+                          <label className="text-sm font-medium text-black">Return Date</label>
+                          <input
+                            type="date"
+                            required
+                            className="w-full py-2 text-lg text-gray-400 border-b border-gray-300 focus:outline-none"
+                          />
+                        </div>
+                      </div>
+                      {/* Submit Button */}
+                      <div className="flex items-end w-full px-2 md:w-1/4">
+                        <Link
+                          href="/contact"
+                          className="px-6 py-3 font-semibold text-white transition duration-300 bg-black rounded-lg hover:bg-black"
+                        >
+                          Check Availblity
+                        </Link>
+                      </div>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
-        </section>
-
+        </div>
         {/* Experience Section */}
         <section className="py-24">
           <div className="container px-4 mx-auto sm:px-6 lg:px-8">
@@ -259,7 +294,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h2 className="mb-4 text-3xl font-bold md:text-4xl">Subscribe to Royal Jat Travels</h2>
+            <h2 className="mb-4 text-3xl font-bold md:text-4xl">Subscribe to Basaani Travels</h2>
             <p className="mb-8 text-lg md:text-xl">
               Stay updated with the latest travel deals, offers, and updates from Royal Jat Travels. Enter your email below to subscribe to our newsletter.
             </p>
