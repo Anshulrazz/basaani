@@ -337,7 +337,7 @@ export default function Home() {
                   placeholder="Enter your Phone No..."
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg shadow-md focus:outline-none"
+                  className="w-full px-4 py-3 rounded-lg shadow-md focus:outline-none text-black"
                   required
                 />
               </div>
