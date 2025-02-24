@@ -14,6 +14,19 @@ import ic1 from "../public/flight.png"
 import ic2 from "../public/hotels.png"
 import ic3 from "../public/bus.png"
 import ic4 from "../public/car.png"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { CreditCard, Globe, Play, Search } from "lucide-react"
+import { Plane, Hotel, Map, FileText, Car, HeadphonesIcon } from "lucide-react"
+
+function AdditionalService({ icon, text }) {
+  return (
+    <li className="flex items-center">
+      {icon}
+      <span>{text}</span>
+    </li>
+  )
+}
 
 export default function Home() {
   useEffect(() => {
@@ -44,17 +57,17 @@ export default function Home() {
     {
       name: "Hotel",
       image: ic2,
-      link : '/hotel'
+      link: '/hotel'
     },
     {
       name: "Bus",
       image: ic3,
-      link:'/bus'
+      link: '/bus'
     },
     {
       name: "Car",
       image: ic4,
-      link:'/car'
+      link: '/car'
     },
   ]
 
@@ -114,77 +127,56 @@ export default function Home() {
 
       <div className="relative z-10">
         <Navbar />
-        <div
-          id="booking"
-          className="relative h-screen bg-center bg-cover"
-          style={{ backgroundImage: "url('https://wallpapercave.com/wp/wp4854991.jpg')" }}
-        >
-          <div className="absolute inset-0 bg-slate-300 bg-opacity-15"></div>
-          <div className="absolute left-0 transform -translate-y-1/2 top-1/2">
-            <div className="container px-4 mx-auto">
-              <div className="flex flex-row gap-5 pb-6">
-                {icons.map((icon, index) => (
-                  <Link href={icon.link} >
-                    <Image src={icon.image} alt={icon.name} width={70} height={70} className="p-3 rounded-sm bg-slate-300" />
-                  </Link>
-                ))}
-              </div>
-              <div className="flex justify-start">
-                <div className="w-full max-w-5xl p-6 bg-white rounded-md shadow-lg">
-                  <form>
-                    <div className="flex flex-row -mx-2">
-                      {/* Destination */}
-                      <div className="w-full px-2 mb-4 md:w-1/4">
-                        <label className="text-sm font-medium text-black">Boarding Point</label>
-                        <input
-                          type="text"
-                          placeholder="Country, ZIP, city..."
-                          className="w-full py-2 text-lg text-black border-b border-gray-300 focus:outline-none"
-                        />
-                      </div>
-                      <div className="w-full px-2 mb-4 md:w-1/4">
-                        <label className="text-sm font-medium text-black">Destination Point</label>
-                        <input
-                          type="text"
-                          placeholder="Country, ZIP, city..."
-                          className="w-full py-2 text-lg text-black border-b border-gray-300 focus:outline-none"
-                        />
-                      </div>
-                      {/* Check In & Check Out */}
-                      <div className="flex flex-wrap w-full px-2 mb-4 md:w-1/2">
-                        <div className="w-1/2 pr-2">
-                          <label className="text-sm font-medium text-black">Departure Date</label>
-                          <input
-                            type="date"
-                            required
-                            className="w-full py-2 text-lg text-gray-400 border-b border-gray-300 focus:outline-none"
-                          />
-                        </div>
-                        <div className="w-1/2 pl-2">
-                          <label className="text-sm font-medium text-black">Return Date</label>
-                          <input
-                            type="date"
-                            required
-                            className="w-full py-2 text-lg text-gray-400 border-b border-gray-300 focus:outline-none"
-                          />
-                        </div>
-                      </div>
-                      {/* Submit Button */}
-                      <div className="flex items-end w-full px-2 md:w-1/4">
-                        <Link
-                          href="/contact"
-                          className="px-6 py-3 font-semibold text-white transition duration-300 bg-black rounded-lg hover:bg-black"
-                        >
-                          Check Availblity
-                        </Link>
-                      </div>
-                    </div>
-                  </form>
+        <main className="container mx-auto px-6 py-12 grid md:grid-cols-2 gap-12 items-center">
+          <div className="space-y-8" data-aos="fade-up">
+            <div className="flex items-center gap-2 text-[#ff5d38]">
+              <span>Explore the world</span>
+              <Globe className="w-4 h-4" />
+            </div>
+
+            <h1 className="text-5xl font-bold leading-tight">
+              Your Next <span className="text-[#ff5d38]">Adventure</span> Awaits!
+            </h1>
+
+            <p className="text-muted-foreground text-lg">
+              Discover exclusive destinations and unforgettable experiences with Wanderlust Adventures.
+            </p>
+
+            <div className="flex items-center gap-4">
+              <Button className="bg-[#ff5d38] hover:bg-[#ff5d38]/90">Explore Now</Button>
+              <Button variant="ghost" className="flex items-center gap-2">
+                <Play className="w-4 h-4" />
+                How It Works
+              </Button>
+            </div>
+
+            <div className="grid md:grid-cols-[1fr,1fr,auto] gap-4 p-2 bg-gray-50 rounded-lg">
+              <div className="relative">
+                <Input placeholder="Location" defaultValue="Boston, US" className="pl-8 text-black" />
+                <div className="absolute left-2 top-1/2 -translate-y-1/2">
+                  <div className="w-4 h-4 rounded-full border-2 border-[#ff5d38]" />
                 </div>
               </div>
+              <div>
+                <Input type="date" defaultValue="2024-01-01" className="text-black" />
+              </div>
+              <Button className="bg-[#2e1760] hover:bg-[#2e1760]/90">
+                <Search className="w-4 h-4" />
+                Search
+              </Button>
             </div>
           </div>
-        </div>
+
+          <div className="relative hidden md:block" data-aos="fade-up">
+            <Image
+              src="https://png.pngtree.com/thumb_back/fh260/background/20231007/pngtree-stunning-3d-travel-banner-design-image_13566767.png"
+              alt="Travel experience showcase"
+              width={600}
+              height={500}
+              className="object-contain rounded-sm "
+            />
+          </div>
+        </main>
         {/* Experience Section */}
         <section className="py-24">
           <div className="container px-4 mx-auto sm:px-6 lg:px-8">
@@ -215,7 +207,18 @@ export default function Home() {
             </div>
           </div>
         </section>
-
+        <section className="py-16">
+          <div className="container mx-auto text-center">
+            <h2 className="text-3xl font-bold" data-aos="fade-up">Featured Travel Packages</h2>
+            <div className="grid gap-8 mt-8 md:grid-cols-2 lg:grid-cols-4">
+              {['Romantic Getaways', 'Adventure Trips', 'Family-Friendly Tours', 'Luxury Escapes'].map((packageType, index) => (
+                <motion.div key={index} data-aos="fade-up" data-aos-delay={index * 100} className="p-6  border-2 rounded-lg shadow-md">
+                  <h3 className="text-xl font-semibold">{packageType}</h3>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
         <Features />
 
         {/* Popular Destinations */}
@@ -255,7 +258,26 @@ export default function Home() {
             </div>
           </div>
         </section>
+        <section className="py-16 flex flex-row">
+          <div className="container mx-auto text-left">
+            <h2 className="text-3xl font-bold" data-aos="fade-up">Top Travel Tips</h2>
+            <ul className="mt-6 space-y-4 text-lg text-gray-600" data-aos="fade-up" data-aos-delay="200">
+              <li>📍 Best Time to Visit Popular Destinations</li>
+              <li>📜 Visa & Travel Documents Guide</li>
+              <li>💼 Packing Hacks</li>
+              <li>✈️ Budget Travel Tips</li>
+            </ul>
+          </div>
 
+          <div className="container mx-auto text-center">
+            <h2 className="text-3xl font-bold" data-aos="fade-up">Follow Us on Social Media</h2>
+            <div className="flex flex-col justify-center gap-6 mt-6 text-xl">
+              <Link href="#" className="hover:text-blue-500">📸 Instagram</Link>
+              <Link href="#" className="hover:text-blue-500">📘 Facebook</Link>
+              <Link href="#" className="hover:text-blue-500">🎥 YouTube</Link>
+            </div>
+          </div>
+        </section>
         <BrandCollaboration />
 
         {/* Testimonials */}
@@ -287,6 +309,15 @@ export default function Home() {
             </div>
           </div>
         </section>
+                  <div className="bg-muted p-8 rounded-lg mb-12 ml-8 mr-8">
+                    <h2 className="text-2xl font-semibold mb-4">Additional Offerings</h2>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <AdditionalService icon={<CreditCard className="w-5 h-5 mr-2" />} text="Currency Exchange" />
+                      <AdditionalService icon={<HeadphonesIcon className="w-5 h-5 mr-2" />} text="24/7 Customer Support" />
+                      <AdditionalService icon={<Map className="w-5 h-5 mr-2" />} text="Guided Tours" />
+                      <AdditionalService icon={<Plane className="w-5 h-5 mr-2" />} text="Airport Transfers" />
+                    </ul>
+                  </div>
         <div className="py-24 md:px-20">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
