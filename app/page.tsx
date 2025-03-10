@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { CreditCard, Globe, Play, Search } from "lucide-react"
 import { Plane, Hotel, Map, FileText, Car, HeadphonesIcon } from "lucide-react"
-
+import axios from 'axios'
 function AdditionalService({ icon, text }) {
   return (
     <li className="flex items-center">
@@ -40,14 +40,24 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubscribe = (e: any) => {
+  const handleSubscribe = async (e: any) => {
     e.preventDefault();
-    if (email) {
-      setSubmitted(true);
-      setEmail("");
-      setTimeout(() => setSubmitted(false), 3000);
+    try {
+      const recipientEmail = email;
+      const response = await axios.post('http://localhost:5000/send-email', { recipientEmail });
+
+      if (response.status === 200) {
+        setEmail('');
+        setSubmitted(true);
+      } else {
+        alert('Subscription failed. Please try again.');
+      }
+    } catch (error) {
+      alert('An error occurred. Please try again.');
+      console.log(error);
     }
   };
+
   const icons = [
     {
       name: "Flight",
@@ -309,15 +319,15 @@ export default function Home() {
             </div>
           </div>
         </section>
-                  <div className="bg-muted p-8 rounded-lg mb-12 ml-8 mr-8">
-                    <h2 className="text-2xl font-semibold mb-4">Additional Offerings</h2>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <AdditionalService icon={<CreditCard className="w-5 h-5 mr-2" />} text="Currency Exchange" />
-                      <AdditionalService icon={<HeadphonesIcon className="w-5 h-5 mr-2" />} text="24/7 Customer Support" />
-                      <AdditionalService icon={<Map className="w-5 h-5 mr-2" />} text="Guided Tours" />
-                      <AdditionalService icon={<Plane className="w-5 h-5 mr-2" />} text="Airport Transfers" />
-                    </ul>
-                  </div>
+        <div className="bg-muted p-8 rounded-lg mb-12 ml-8 mr-8">
+          <h2 className="text-2xl font-semibold mb-4">Additional Offerings</h2>
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <AdditionalService icon={<CreditCard className="w-5 h-5 mr-2" />} text="Currency Exchange" />
+            <AdditionalService icon={<HeadphonesIcon className="w-5 h-5 mr-2" />} text="24/7 Customer Support" />
+            <AdditionalService icon={<Map className="w-5 h-5 mr-2" />} text="Guided Tours" />
+            <AdditionalService icon={<Plane className="w-5 h-5 mr-2" />} text="Airport Transfers" />
+          </ul>
+        </div>
         <div className="py-24 md:px-20">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -333,8 +343,8 @@ export default function Home() {
             <form onSubmit={handleSubscribe} className="flex flex-col items-center justify-center gap-4 md:flex-row">
               <div className="relative w-full md:w-auto">
                 <input
-                  type="phone"
-                  placeholder="Enter your Phone No..."
+                  type="email"
+                  placeholder="Enter your Email..."
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-3 rounded-lg shadow-md focus:outline-none text-black"
